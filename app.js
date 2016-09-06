@@ -12,7 +12,7 @@ client.on('connect', function() {
   client.subscribe(conf.logSubject, function(msg, reply, subject) {  
     if(msg) {
       var json = toJSON(msg);
-      log.debug('[' + getSubject(subject) + ']\n' + prettyPrintJSON(json));    
+      log.debug('[' + getSubject(subject) + ']\n' + prettyPrintJSON(json));
     }
   });
   
@@ -29,7 +29,7 @@ client.on('connect', function() {
   }
 
   function getSubject(subject) {
-    return subject.indexOf('_INBOX') == 0 ? 'Response (' + subject + ')' : subject;
+    return subject.indexOf('_INBOX') === 0 ? 'Response (' + subject + ')' : subject;
   }
 
 });
@@ -37,4 +37,5 @@ client.on('connect', function() {
 client.on('error', function(e) {
   log.error('Error [' + client.options.url + ']: ' + e);  
 });  
+
 
