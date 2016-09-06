@@ -6,10 +6,11 @@
     "start": "node ./app.js",
     "test": "echo \"no tests\""
   },
-  "dependencies": {        
+  "dependencies": {
     "nats": "^0.6.4",
     "npm": "^3.10.6",
     "uuid": "^2.0.2",
-    "winston": "^2.2.0"
+    "winston": "^2.2.0",
+    "winston-papertrail": "^1.0.3"
   }
 }

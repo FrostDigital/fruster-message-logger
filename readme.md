@@ -26,3 +26,10 @@ Configuration is set with environment variables. All config defaults to values t
     # NATS subject to log
     LOG_SUBJECT = ">"
     
+    # Optional host and port of (remote) syslog
+    # Example: `localhost:8272`
+    SYSLOG = null
+    
+    # Name/title of syslog
+    SYSLOG_NAME = "Fruster msg logger"
+    
