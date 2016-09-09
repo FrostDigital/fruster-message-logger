@@ -11,7 +11,8 @@ client.on('connect', function() {
 
   client.subscribe(conf.logSubject, function(msg, reply, subject) {  
     if(msg) {
-      var json = toJSON(msg);
+
+      var json = maskPassword(toJSON(msg));
       log.debug('[' + getSubject(subject) + ']\n' + prettyPrintJSON(json));
     }
   });
@@ -32,6 +33,13 @@ client.on('connect', function() {
     return subject.indexOf('_INBOX') === 0 ? 'Response (' + subject + ')' : subject;
   }
 
+  function maskPassword(json) {   
+    // TODO: Make this more generic
+    if(json && json.data && json.data.password) {
+      json.data.password = '***MASKED***';
+    }
+    return json;
+  }
 });
 
 client.on('error', function(e) {
