@@ -1,4 +1,4 @@
-const log = require('./log');
+const log = require('fruster-log');
 const conf = require('./conf');
 const nats = require('nats');
 
