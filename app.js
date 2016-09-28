@@ -17,7 +17,7 @@ client.on('connect', function() {
     }
   });
 
-  console.log(process.env);
+  log.info(process.env);
   
   function toJSON(str) {
     try {
