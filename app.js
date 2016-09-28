@@ -6,18 +6,17 @@ var client = nats.connect({servers: conf.bus});
 
 log.info('Connecting to NATS bus', conf.bus);
 
+log.info('Env:', process.env);
+
 client.on('connect', function() {
   log.info('Successfully connected to NATS bus', conf.bus);
 
   client.subscribe(conf.logSubject, function(msg, reply, subject) {  
     if(msg) {
-
       var json = maskPassword(toJSON(msg));
       log.debug('[' + getSubject(subject) + ']\n' + prettyPrintJSON(json));
     }
   });
-
-  log.info(process.env);
   
   function toJSON(str) {
     try {
