@@ -6,8 +6,6 @@ var client = nats.connect({servers: conf.bus});
 
 log.info('Connecting to NATS bus', conf.bus);
 
-log.info('Env:', process.env);
-
 client.on('connect', function() {
   log.info('Successfully connected to NATS bus', conf.bus);
 
