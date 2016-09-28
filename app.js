@@ -16,6 +16,8 @@ client.on('connect', function() {
       log.debug('[' + getSubject(subject) + ']\n' + prettyPrintJSON(json));
     }
   });
+
+  console.log(process.env);
   
   function toJSON(str) {
     try {
