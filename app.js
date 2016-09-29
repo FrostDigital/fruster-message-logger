@@ -1,6 +1,7 @@
 const log = require('fruster-log');
 const conf = require('./conf');
 const nats = require('nats');
+const health = require('fruster-health');
 
 var client = nats.connect({servers: conf.bus});
 
@@ -8,6 +9,8 @@ log.info('Connecting to NATS bus', conf.bus);
 
 client.on('connect', function() {
   log.info('Successfully connected to NATS bus', conf.bus);
+
+  health.setAlive(true);
 
   client.subscribe(conf.logSubject, function(msg, reply, subject) {  
     if(msg) {
@@ -43,6 +46,8 @@ client.on('connect', function() {
 
 client.on('error', function(e) {
   log.error('Error [' + client.options.url + ']: ' + e);  
+
+  health.setAlive(false);
 });  
 
 
