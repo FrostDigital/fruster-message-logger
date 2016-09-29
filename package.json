@@ -13,5 +13,8 @@
     "uuid": "^2.0.2",
     "winston": "^2.2.0",
     "winston-papertrail": "^1.0.3"
+  },
+  "engines": {
+    "node": "6.4.0"
   }
 }
