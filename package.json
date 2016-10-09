@@ -8,12 +8,9 @@
   },
   "dependencies": {
     "fruster-health": "0.0.1",
-    "fruster-log": "~0.0.4",
+    "fruster-log": "~0.0.6",
     "nats": "^0.6.4",
-    "npm": "^3.10.6",
-    "uuid": "^2.0.2",
-    "winston": "^2.2.0",
-    "winston-papertrail": "^1.0.3"
+    "npm": "^3.10.6"
   },
   "engines": {
     "node": "6.4.0"
