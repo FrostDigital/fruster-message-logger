@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "fruster-health": "0.0.1",
-    "fruster-log": "~0.0.4",
     "nats": "^0.6.4",
     "npm": "^3.10.6",
     "uuid": "^2.0.2",

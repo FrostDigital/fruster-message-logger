@@ -1,21 +1,20 @@
-const log = require('fruster-log');
 const conf = require('./conf');
 const nats = require('nats');
 const health = require('fruster-health');
 
 var client = nats.connect({servers: conf.bus});
 
-log.info('Connecting to NATS bus', conf.bus);
+console.log('Connecting to NATS bus', conf.bus);
 
 client.on('connect', function() {
-  log.info('Successfully connected to NATS bus', conf.bus);
+  console.log('Successfully connected to NATS bus', conf.bus);
 
   health.setAlive(true);
 
   client.subscribe(conf.logSubject, function(msg, reply, subject) {  
     if(msg) {
       var json = maskPassword(toJSON(msg));
-      log.debug('[' + getSubject(subject) + ']\n' + prettyPrintJSON(json));
+      console.log('[' + getSubject(subject) + ']\n' + prettyPrintJSON(json));
     }
   });
   
