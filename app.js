@@ -10,7 +10,7 @@ log.info('Connecting to NATS bus', conf.bus);
 client.on('connect', function() {
   log.info('Successfully connected to NATS bus', conf.bus);
 
-  health.setAlive(true);
+  health.start();
 
   client.subscribe(conf.logSubject, function(msg, reply, subject) {  
     if(msg) {
@@ -46,8 +46,6 @@ client.on('connect', function() {
 
 client.on('error', function(e) {
   log.error('Error [' + client.options.url + ']: ' + e);  
-
-  health.setAlive(false);
 });  
 
 
