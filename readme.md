@@ -8,7 +8,7 @@ Install dependencies:
 
     npm install
 
-Start server:
+Start locally:
 
     npm start
 
