@@ -16,7 +16,7 @@ Start server:
 
 Configuration is set with environment variables. All config defaults to values that makes sense for development.
     
-    # Applications log level (error|warn|info|debug|silly)
+    # Applications log level (error|warn|info|debug|trace)
     LOG_LEVEL = "debug"
     
     # NATS servers, set multiple if using cluster
@@ -26,7 +26,7 @@ Configuration is set with environment variables. All config defaults to values t
     # NATS subject to log
     LOG_SUBJECT = ">"
     
-    # Optional host and port of (remote) syslog
+    # Optional host and port of (remote) syslog, use this to log directly to papertrail
     # Example: `localhost:8272`
     SYSLOG = null
     
