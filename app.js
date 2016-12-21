@@ -13,6 +13,11 @@ client.on('connect', function() {
   health.start();
 
   client.subscribe(conf.logSubject, function(msg, reply, subject) {  
+    
+    if(conf.excludePattern && matchesPattern(subject, conf.excludePattern)) {
+      return;
+    }
+
     if(msg) {
       var json = maskPassword(toJSON(msg));
       log.debug('[' + getSubject(subject) + ']\n' + prettyPrintJSON(json));
@@ -48,4 +53,10 @@ client.on('error', function(e) {
   log.error('Error [' + client.options.url + ']: ' + e);  
 });  
 
-
+function matchesPattern(str, pattern) {
+  if(pattern.indexOf("*") > -1) {
+      return new RegExp("^" + pattern.split("*").join(".*") + "$").test(str);    
+  } else {
+    return str == pattern.trim();
+  }
+}
