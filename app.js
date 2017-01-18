@@ -33,7 +33,7 @@ client.on('connect', function() {
   }
 
   function prettyPrintJSON(json) {
-    return JSON.stringify(json, null, 2);
+    return JSON.stringify(json, null, conf.style == "single-line" ? 0 : 2);
   }
 
   function getSubject(subject) {
