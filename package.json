@@ -7,7 +7,7 @@
     "test": "echo \"no tests\""
   },
   "dependencies": {
-    "fruster-health": "0.0.6",
+    "fruster-health": "0.0.7",
     "fruster-log": "0.0.8",
     "nats": "^0.6.8",
     "npm": "^4.0.5"
