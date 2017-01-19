@@ -3,6 +3,8 @@ const conf = require('./conf');
 const nats = require('nats');
 const health = require('fruster-health');
 
+const isSingleLine = conf.style == "single-line";
+
 var client = nats.connect({servers: conf.bus});
 
 log.info('Connecting to NATS bus', conf.bus);
@@ -20,7 +22,7 @@ client.on('connect', function() {
 
     if(msg) {
       var json = maskPassword(toJSON(msg));
-      log.debug('[' + getSubject(subject) + ']\n' + prettyPrintJSON(json));
+      log.debug(`[${getSubject(subject)}] ${isSingleLine ? '' : '\n'}${prettyPrintJSON(json)}`);
     }
   });
   
@@ -33,7 +35,7 @@ client.on('connect', function() {
   }
 
   function prettyPrintJSON(json) {
-    return JSON.stringify(json, null, conf.style == "single-line" ? 0 : 2);
+    return JSON.stringify(json, null, isSingleLine ? 0 : 2);
   }
 
   function getSubject(subject) {
