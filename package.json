@@ -4,15 +4,22 @@
   "private": true,
   "scripts": {
     "start": "node ./app.js",
-    "test": "echo \"no tests\""
+    "test": "node ./spec/support/jasmine-runner.js"
   },
   "dependencies": {
-    "fruster-health": "0.0.7",
-    "fruster-log": "0.0.8",
+    "fruster-health": "0.0.11",
+    "fruster-log": "0.0.11",
+    "ms": "^2.0.0",
     "nats": "^0.6.8",
-    "npm": "^4.0.5"
+    "npm": "^4.6.1",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "fruster-test-utils": "^0.3.12",
+    "jasmine": "^2.5.2",
+    "jasmine-spec-reporter": "^2.7.0"
   },
   "engines": {
-    "node": "6.4.0"
+    "node": "7.9.0"
   }
 }
