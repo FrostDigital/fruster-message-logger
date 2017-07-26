@@ -3,6 +3,7 @@ const conf = require("./conf");
 const nats = require("nats");
 const health = require("fruster-health");
 const mongo = require("mongodb");
+const MessageRepo = require("./lib/repos/MessageRepo");
 
 const isSingleLine = conf.style == "single-line";
 
@@ -35,7 +36,7 @@ client.on("connect", ()  => {
 			log.debug(`[${getSubject(subject)}] ${isSingleLine ? '' : '\n'}${prettyPrintJSON(json)}`);
 
 			if (messageRepo) {
-				messageRepo.save(json);
+				messageRepo.save(subject, json);
 			}
 		}
 	});
@@ -46,7 +47,7 @@ client.on("error", function(e) {
 });
 
 function createMessageRepo(mongoUrl) {
-	mongo.connect(mongoUrl)
+	return mongo.connect(mongoUrl)
 		.then(db => new MessageRepo(db));
 }
 
@@ -71,7 +72,7 @@ function prettyPrintJSON(json) {
 	}
 
 function getSubject(subject) {
-	return subject.indexOf("_INBOX") === 0 ? "Response (" + subject + ")" : subject;
+	return subject.indexOf("_INBOX") === 0 || subject.indexOf("res.") === 0 ? "Response (" + subject + ")" : subject;
 }
 
 function maskPassword(json)  {
