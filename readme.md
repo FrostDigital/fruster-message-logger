@@ -2,6 +2,8 @@
 
 Simple message logger that (by default) picks up all message on bus and log them.
 
+Can optionally persist messages to database by setting `MONGO_URL` in config.
+
 ## Run
 
 Install dependencies:
@@ -32,4 +34,8 @@ Configuration is set with environment variables. All config defaults to values t
     
     # Name/title of syslog
     SYSLOG_NAME = "Fruster msg logger"
+    
+    # Optional URL to mongo database to persist messages
+    MONGO_URL = null
+    
     
