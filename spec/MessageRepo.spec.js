@@ -20,7 +20,7 @@ describe("MessageRepo", () => {
 			data: {}
 		};
 
-		const resSubject = "res." + reqSubject;
+		const resSubject = "res." + req.transactionId + "." + reqSubject;
 		const res = {
 			reqId: req.reqId,
 			transactionId: req.transactionId
@@ -38,7 +38,8 @@ describe("MessageRepo", () => {
 		messageRepo.save(resSubject, res)
 			.then(wait)
 			.then(savedRes => messageRepo.get(savedRes.id))
-			.then(savedResWithTime => {
+			.then(savedResWithTime => {				
+				expect(savedResWithTime.reqSubject).toBe(reqSubject);
 				expect(savedResWithTime.ms).toBeGreaterThan(0);
 				done();
 			});
