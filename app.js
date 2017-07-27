@@ -4,6 +4,7 @@ const nats = require("nats");
 const health = require("fruster-health");
 const mongo = require("mongodb");
 const MessageRepo = require("./lib/repos/MessageRepo");
+const utils = require("./lib/utils");
 
 const isSingleLine = conf.style == "single-line";
 
@@ -33,7 +34,7 @@ client.on("connect", ()  => {
 
 		if (msg) {
 			let json = maskPassword(toJSON(msg));
-			log.debug(`[${getSubject(subject)}] ${isSingleLine ? '' : '\n'}${prettyPrintJSON(json)}`);
+			log.debug(`[${formatSubject(subject)}] ${isSingleLine ? '' : '\n'}${prettyPrintJSON(json)}`);
 
 			if (messageRepo) {
 				messageRepo.save(subject, json);
@@ -71,8 +72,8 @@ function prettyPrintJSON(json) {
 		return JSON.stringify(json, null, isSingleLine ? 0 : 2);
 	}
 
-function getSubject(subject) {
-	return subject.indexOf("_INBOX") === 0 || subject.indexOf("res.") === 0 ? "Response (" + subject + ")" : subject;
+function formatSubject(subject) {
+	return utils.isResponse(subject) ? "Response (" + subject + ")" : subject;
 }
 
 function maskPassword(json)  {
