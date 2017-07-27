@@ -11,7 +11,7 @@ const isSingleLine = conf.style == "single-line";
 let messageRepo;
 
 let client = nats.connect({
-	servers: conf.bus
+	servers: [conf.bus]
 });
 
 log.info("Connecting to NATS bus", conf.bus);
