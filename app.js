@@ -49,7 +49,10 @@ client.on("error", function(e) {
 
 function createMessageRepo(mongoUrl) {
 	return mongo.connect(mongoUrl)
-		.then(db => new MessageRepo(db));
+		.then(db => {
+			log.info("Successfully connected to database");
+			return new MessageRepo(db);
+		});		
 }
 
 function matchesPattern(str, pattern) {
