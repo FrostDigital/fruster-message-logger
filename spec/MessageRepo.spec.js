@@ -17,7 +17,11 @@ describe("MessageRepo", () => {
 		const req = {
 			reqId: "aa8a4fc1-cb3f-4329-8bf4-3a0f31fbd61f",
 			transactionId: "5143721d-f46a-4f39-8506-89f5f85acd35",
-			data: {}
+			data: {},
+			from: {
+				service: "service",
+				instanceId: "instanceId"
+			}
 		};
 
 		const resSubject = "res." + req.transactionId + "." + reqSubject;
@@ -33,6 +37,8 @@ describe("MessageRepo", () => {
 				expect(savedReq.subject).toBe(reqSubject);
 				expect(savedReq.reqId).toBe(req.reqId);
 				expect(savedReq.message).toBeDefined();
+				expect(savedReq.from.service).toBe("service");
+				expect(savedReq.from.instanceId).toBe("instanceId");
 			});
 
 		messageRepo.save(resSubject, res)
