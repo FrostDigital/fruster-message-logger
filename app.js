@@ -79,10 +79,20 @@ function formatSubject(subject) {
 	return utils.isResponse(subject) ? "Response (" + subject + ")" : subject;
 }
 
-function maskPassword(json)  {
-	// TODO: Make this more generic
-	if (json && json.data && json.data.password) {
+function maskPassword(json = {})  {
+	json.data = json.data || {};
+
+	if (json.data.password) {
 		json.data.password = "***MASKED***";
 	}
+
+	if (json.data.newPassword) {
+		json.data.newPassword = "***MASKED***";
+	}
+
+	if (json.data.confirmPassword) {
+		json.data.confirmPassword = "***MASKED***";
+	}
+
 	return json;
 }
