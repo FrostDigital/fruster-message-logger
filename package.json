@@ -7,16 +7,15 @@
     "test": "node ./spec/support/jasmine-runner.js"
   },
   "dependencies": {
-    "fruster-health": "0.0.11",
-    "fruster-log": "0.0.11",
+    "fruster-health": "0.0.12",
+    "fruster-log": "0.0.16",
     "mongodb": "^2.2.30",
     "ms": "^2.0.0",
     "nats": "^0.6.8",
-    "npm": "^4.6.1",
     "uuid": "^3.1.0"
   },
   "devDependencies": {
-    "fruster-test-utils": "^0.3.12",
+    "fruster-test-utils": "^0.3.20",
     "jasmine": "^2.5.2",
     "jasmine-spec-reporter": "^2.7.0"
   },
