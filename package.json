@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "fruster-health": "0.0.12",
-    "fruster-log": "0.0.16",
+    "fruster-log": "~0.0.17",
     "mongodb": "^2.2.30",
     "ms": "^2.0.0",
     "nats": "^0.6.8",
