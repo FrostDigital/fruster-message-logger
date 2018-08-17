@@ -49,8 +49,6 @@ describe("MessageRepo", () => {
 				done();
 			});
 	});
-
-	it("should not log _private messages", async done => {});
 });
 
 function wait(o) {
