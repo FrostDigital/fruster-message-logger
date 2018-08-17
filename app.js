@@ -7,6 +7,7 @@ const MessageRepo = require("./lib/repos/MessageRepo");
 const utils = require("./lib/utils");
 
 const isSingleLine = conf.style == "single-line";
+const PRIVATE_PREFIX = "_private";
 
 let messageRepo;
 
@@ -16,7 +17,7 @@ let client = nats.connect({
 
 log.info("Connecting to NATS bus", conf.bus);
 
-client.on("connect", ()  => {
+client.on("connect", () => {
 	log.info("Successfully connected to NATS bus", conf.bus);
 
 	health.start();
@@ -28,13 +29,16 @@ client.on("connect", ()  => {
 	}
 
 	client.subscribe(conf.logSubject, (msg, reply, subject) => {
-		if (conf.excludePattern && matchesPattern(subject, conf.excludePattern)) {
+		if (
+			(conf.excludePattern && matchesPattern(subject, conf.excludePattern)) ||
+			subject.indexOf(PRIVATE_PREFIX) === 0
+		) {
 			return;
 		}
 
 		if (msg) {
 			let json = maskPassword(toJSON(msg));
-			log.debug(`[${formatSubject(subject)}] ${isSingleLine ? '' : '\n'}${prettyPrintJSON(json)}`);
+			log.debug(`[${formatSubject(subject)}] ${isSingleLine ? "" : "\n"}${prettyPrintJSON(json)}`);
 
 			if (messageRepo) {
 				messageRepo.save(subject, json);
@@ -48,11 +52,10 @@ client.on("error", function(e) {
 });
 
 function createMessageRepo(mongoUrl) {
-	return mongo.connect(mongoUrl)
-		.then(db => {
-			log.info("Successfully connected to database");
-			return new MessageRepo(db);
-		});		
+	return mongo.connect(mongoUrl).then(db => {
+		log.info("Successfully connected to database");
+		return new MessageRepo(db);
+	});
 }
 
 function matchesPattern(str, pattern) {
@@ -63,7 +66,7 @@ function matchesPattern(str, pattern) {
 	}
 }
 
-function toJSON(str)  {
+function toJSON(str) {
 	try {
 		return JSON.parse(str);
 	} catch (e) {
@@ -72,15 +75,15 @@ function toJSON(str)  {
 }
 
 function prettyPrintJSON(json) {
-		return JSON.stringify(json, null, isSingleLine ? 0 : 2);
-	}
+	return JSON.stringify(json, null, isSingleLine ? 0 : 2);
+}
 
 function formatSubject(subject) {
 	return utils.isResponse(subject) ? "Response (" + subject + ")" : subject;
 }
 
-function maskPassword(json = {})  {
-	json.data = json.data || {};
+function maskPassword(json = {}) {
+	json.data = json.data || {};
 
 	if (json.data.password) {
 		json.data.password = "***MASKED***";
