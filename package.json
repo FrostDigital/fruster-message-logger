@@ -9,12 +9,14 @@
 	"dependencies": {
 		"fruster-health": "0.0.13",
 		"fruster-log": "~0.0.18",
+		"jsonpath": "^1.1.1",
 		"mongodb": "^2.2.30",
 		"ms": "^2.1.1",
 		"nats": "^1.0.1",
 		"uuid": "^3.3.2"
 	},
 	"devDependencies": {
+		"@types/jsonpath": "^0.2.0",
 		"fruster-test-utils": "^0.3.22",
 		"jasmine": "^2.5.2",
 		"jasmine-spec-reporter": "^2.7.0"
