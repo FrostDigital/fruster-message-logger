@@ -17,6 +17,7 @@
 	},
 	"devDependencies": {
 		"@types/jsonpath": "^0.2.0",
+		"fruster-bus": "^0.7.13",
 		"fruster-test-utils": "^0.3.22",
 		"jasmine": "^2.5.2",
 		"jasmine-spec-reporter": "^2.7.0"
