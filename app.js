@@ -37,11 +37,12 @@ client.on("connect", () => {
 		}
 
 		if (msg) {
-			let json = maskPassword(toJSON(msg));
-			log.debug(`[${formatSubject(subject)}] ${isSingleLine ? "" : "\n"}${prettyPrintJSON(json)}`);
+			let anonymizedJson = utils.anonymizeMessage(toJSON(msg));
+
+			log.debug(`[${formatSubject(subject)}] ${isSingleLine ? "" : "\n"}${prettyPrintJSON(anonymizedJson)}`);
 
 			if (messageRepo) {
-				messageRepo.save(subject, json);
+				messageRepo.save(subject, anonymizedJson);
 			}
 		}
 	});
@@ -80,22 +81,4 @@ function prettyPrintJSON(json) {
 
 function formatSubject(subject) {
 	return utils.isResponse(subject) ? "Response (" + subject + ")" : subject;
-}
-
-function maskPassword(json = {}) {
-	json.data = json.data || {};
-
-	if (json.data.password) {
-		json.data.password = "***MASKED***";
-	}
-
-	if (json.data.newPassword) {
-		json.data.newPassword = "***MASKED***";
-	}
-
-	if (json.data.confirmPassword) {
-		json.data.confirmPassword = "***MASKED***";
-	}
-
-	return json;
 }
